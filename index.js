@@ -202,7 +202,7 @@ function getStreamHeaders(req) {
  * Example: `https://host/live.m3u8` -> `/hls-proxy?url=...`.
  */
 function getProxiedUpstreamUrl(req, upstreamUrl) {
-    return `${req.protocol}://${req.headers.host}/hls-proxy?url=${encodeURIComponent(upstreamUrl)}`;
+    return `https://${req.headers.host}/hls-proxy?url=${encodeURIComponent(upstreamUrl)}`;
 }
 
 /**
@@ -701,7 +701,7 @@ app.get('/channels.m3u8', async function (req, res) {
             output.push(`#EXTINF:-1 tvg-name="${channel.name}" group-title="${channel.country}" tvg-logo="${channel.logo}" tvg-id="${channel.name}",${channel.name}`);
             output.push('#EXTVLCOPT:http-user-agent=VAVOO/2.6');
             output.push('#EXTVLCOPT:no-ssl-verify');
-            output.push(`${req.protocol}://${req.headers.host}/stream/${encodeURIComponent(channel.id)}`);
+            output.push(`https://${req.headers.host}/stream/${encodeURIComponent(channel.id)}`);
         }
 
         setPlaylistHeaders(res);
